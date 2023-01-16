@@ -154,7 +154,19 @@ Cas d'une commande invalide:
             - s'il est banni du chan: 
                 - ERR_BANNEDFROMCHAN "<canal> :Cannot join channel (+b)"
             - s'il est pas invité et que le chan est en mode invite : 
-                - ERR_INVITEONLYCHAN: "<canal> :Cannot join channel (+i)" 
+                - ERR_INVITEONLYCHAN>> /ADMIN
+>> /USERS
+>> /ISON
+>> /INFO
+>> /USERHOST
+>> /USERS
+>> /TIME
+>> /VERSION
+>> /WALLOPS
+>> /WHO
+>> /WHOIS
+>> /WHOWAS
+>> /HELP: "<canal> :Cannot join channel (+i)" 
             - si password requis : 
                 - password manquant : ERROR ci dessous.
                 - password faux ou manquant : 
@@ -169,12 +181,30 @@ Cas d'une commande invalide:
             - si le nb max de channels est atteind pour l'user : 
                 ERR_TOOMANYCHANNELS: "<nom de canal> :You have joined too many channels" 
             - création du channel : "channel <channel_name> created + Wed 
+
+
     USER MODES:
         a : away
         i : invisible
         w : wallops
         r : restricted
         o : operator
+
+Utilisation de /MODE sur l'utilisateur (en l'occurence toi) :
+
++a : pour avoir le status administrateur (IRCAdministrator ConferenceRoom)
++c : affichage des messages d'entrée et de sortie des clients (IRCOperator ConferenceRoom)
++g : affichage des GNOTICE, les messages envoyés par la commance /GLOBOPS (IRCOperator ConferenceRoom/DALnet)
++h : pour avoir le status IRCHelper. Affichage des messages de demande d'aide des clients (via les commandes /HELP ou /RAW HELP) (IRCOperator)
++i : invisible, on ne te verra pas en faisant un /NAMES ou un /WHO sur un channel.
++o : pour avoir le status IRCOperator (IRCOperator)
++s : affichage des messages du serveur
++w : affichage des wallops
+Syntaxe : /mode <nickname> <+ | -> <mode>
+Example : /mode MEAT +isw (devient invisible, et affiche les messages du serveur et les wallops)
+Example : /mode #cool -i (redevient visible)
+Example : /mode #cool +gc (affiche les messages I/O des clients et les GNOTICE)
+Example : /mode #cool +a (donne le status IRCAministrator)
     
     CHANNEL MODES:
         for users
