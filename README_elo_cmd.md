@@ -154,19 +154,7 @@ Cas d'une commande invalide:
             - s'il est banni du chan: 
                 - ERR_BANNEDFROMCHAN "<canal> :Cannot join channel (+b)"
             - s'il est pas invité et que le chan est en mode invite : 
-                - ERR_INVITEONLYCHAN>> /ADMIN
->> /USERS
->> /ISON
->> /INFO
->> /USERHOST
->> /USERS
->> /TIME
->> /VERSION
->> /WALLOPS
->> /WHO
->> /WHOIS
->> /WHOWAS
->> /HELP: "<canal> :Cannot join channel (+i)" 
+                - ERR_INVITEONLYCHAN>> : "<canal> :Cannot join channel (+i)" 
             - si password requis : 
                 - password manquant : ERROR ci dessous.
                 - password faux ou manquant : 
@@ -182,6 +170,23 @@ Cas d'une commande invalide:
                 ERR_TOOMANYCHANNELS: "<nom de canal> :You have joined too many channels" 
             - création du channel : "channel <channel_name> created + Wed 
 
+
+/ADMIN
+/OPER
+
+
+>> /USERS
+>> /ISON
+>> /INFO
+>> /USERHOST
+>> /USERS
+>> /TIME
+>> /VERSION
+>> /WALLOPS
+>> /WHO
+>> /WHOIS
+>> /WHOWAS
+>> /HELP
 
     USER MODES:
         a : away

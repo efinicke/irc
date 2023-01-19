@@ -4,7 +4,6 @@
 #include "./include.hpp"
 #include "./User.hpp"
 
-
 enum	chanModes
 {
 	INVITE_MODE     				=  1,    // 0000 0001,  i invite        1 si le chan est en mode invite only
@@ -17,7 +16,6 @@ enum	chanModes
 	NO_OUTSIDE_PRVMSG_MODE          =  128   // 1000 0000,  n outside pvmsg 1 si les messages privés sont interdits en dehors du chan
 }; //nts par defaut = 208
 
-
 class	Channel
 {
 	private:
@@ -27,7 +25,6 @@ class	Channel
 		std::map<int, User>		_voiceList; // liste des users autorisés à parler sur le chan, en dehors des opérateurs
 		std::map<int, User>		_banList; // liste des users bannis
 		std::map<int, User>		_inviteList; // liste des users invités dans le chan
-
 		
 		std::string				_name; // nom du channel
 		int						_ID; //identifiant du channel
