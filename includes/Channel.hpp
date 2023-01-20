@@ -19,21 +19,21 @@ enum	chanModes
 class	Channel
 {
 	private:
-
-		std::map<int, User>		_usersMap; // liste des utilisateurs connectés au channel
-		std::map<int, User>		_operatorsMap; // liste des opérateurs connectés sur le channel
-		std::map<int, User>		_voiceMap; // liste des users autorisés à parler sur le chan, en dehors des opérateurs
-		std::map<int, User>		_banMap; // liste des users bannis
-		std::map<int, User>		_inviteMap; // liste des users invités dans le chan
 		
-		std::string				_name; // nom du channel
-		int						_ID; //identifiant du channel
-		std::string				_password; // mot de passe du channel
-		std::string				_topic; // sujet du channel
-		int						_maxUsers; // nombre maximum d'utilisateurs autorisés à se connecter sur ce channel
+		std::string					_name; // nom du channel
+		int							_ID; //identifiant du channel
+		std::string					_password; // mot de passe du channel
+		std::string					_topic; // sujet du channel
+		int							_maxUsers; // nombre maximum d'utilisateurs autorisés à se connecter sur ce channel
 
-		char					_chanModes;  // format binaire qui indique les modes du channel.
-		std::string				_chanStatus; // contient les modes du channel sous forme de string à afficher lors de /list
+		std::map<int, User *>		_usersMap; // liste des utilisateurs connectés au channel
+		std::map<int, User *>		_operatorsMap; // liste des opérateurs connectés sur le channel
+		std::map<int, User *>		_voiceMap; // liste des users autorisés à parler sur le chan, en dehors des opérateurs
+		std::map<int, User *>		_banMap; // liste des users bannis
+		std::map<int, User *>		_inviteMap; // liste des users invités dans le chan
+
+		char						_chanModes;  // format binaire qui indique les modes du channel.
+		std::string					_chanStatus; // contient les modes du channel sous forme de string à afficher lors de /list
 
 
 	public:
@@ -41,41 +41,65 @@ class	Channel
 		// CONTRUCTOR / DESTRUCTOR
 		Channel(std::string name);
 		Channel(std::string name, std::string password);
-		Channel(std::string name, std::map<int, User> usersMap);
+		Channel(std::string name, std::map<int, User *> usersMap);
 		Channel();
 		~Channel(void);
 
 		// *** GETTERS ***
-		std::map<int, User>	getUsersMap() const;
-		std::map<int, User>	getOperatorsMap() const;
-		std::map<int, User>	getVoiceMap() const;
-		std::map<int, User>	getBanMap() const;
-		std::map<int, User>	getInviteMap() const;
+		std::string				getName() const;
+		int						getID() const;
+		std::string				getTopic() const;
+		int						getMaxUsers() const;
+		User *					getUser(std::string user);
 
-		std::string			getName() const;
-		int					getID() const;
-		std::string			getTopic() const;
-		int					getMaxUsers() const;
+		std::map<int, User *>	getUsersMap() const;
+		std::map<int, User *>	getOperatorsMap() const;
+		std::map<int, User *>	getVoiceMap() const;
+		std::map<int, User *>	getBanMap() const;
+		std::map<int, User *>	getInviteMap() const;
 
-		char				getModes() const; // modes du channel (code numérique)
-		std::string 		getStatus() const; // modes du channel (lettres)
+		char					getModes() const; // modes du channel (code numérique)
+		std::string 			getStatus() const; // modes du channel (lettres)
+		void			 		printMap(std::map<int, User *> map); //afficher map
 
 
 		// *** SETTERS ***
-
 		// 	AJOUTER UN USER A UNE LISTE: 
-		void	addUser(int id, User user);
-		void	addOperator(int id, User user);
-		void	addVoiced(int id, User user);
-		void	addBan(int id, User user);
-		void	addInvite(int id, User user);
+		void	addUser(int id, User *user);
+		void	addOperator(int id, User *user);
+		void	addVoiced(int id, User *user);
+		void	addBan(int id, User *user);
+		void	addInvite(int id, User *user);
 
+		// SUPPRIMER UN UTILISATEUR D'UNE LISTE: 
+		void	removeUser(User *user, std::map<int, User *> map);
+		
 		// 	DEFINIR DES PROPRIETES AU CHANNEL: 
 		void	setTopic(std::string topic);
 		void	setMaxUsers(int maxUsers);
 		void	addMode(char to_add);
-		void	rmvMode(char to_rmv);
+		void	removeMode(char to_rmv);
 		void	setStatus(); // maj automatique avec addMode() et rmvMode()
 };
 
 #endif
+
+/*
+void	Channel::sendToChanUsers(std::string const &msg){
+	std::map< int, User *>::iterator it;
+
+	for (it = _usersMap.begin(); it != _usersMap.end(); it++){
+		//send(it->second->getUserId), msg.c_str(), msg.length(), MSG_CONFIRM);
+	}
+}
+
+void			Channel::printMap(std::map<int, User *> map)
+{
+	if (!map.empty()){
+		for (std::map<int, User *>::iterator it = map.begin(); it != map.end(); it++)
+			it->second->printMap();
+	}
+	else
+		std::cout << "empty map." << std::endl; 
+}
+*/

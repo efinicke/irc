@@ -29,7 +29,8 @@ enum	userModes
 class	User
 {
 	private:
-	
+
+		int			_id;
 		std::string	_username;
 		std::string	_nickname;
 		std::string _hostname;
@@ -49,8 +50,10 @@ class	User
 		void		setNickname(std::string new_nickname);
 		void		setUserModes(char userModes); // modes de l'user sous format numérique
 		void		setUserStatus(); // modes de l'user sous forme de lettres
-
+		void		addMode(char to_add);
+		void		removeMode(char to_rmv);
 		// GETTER
+		int			getUserID() const;
 		std::string	getUsername() const;
 		std::string	getNickname() const;
 		std::string getHostname() const;

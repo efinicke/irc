@@ -21,7 +21,6 @@ User::User(std::string username, std::string nickname) : _username(username), _n
 User::~User(void) {}
 
 
-
 /*=====================================================*/
 /* 					     SETTER						   */
 /*=====================================================*/
@@ -52,30 +51,46 @@ void		User::setUserStatus(){
 		this->_userStatus = "+" + this->_userStatus;
 }
 
+//activer un mode (forme binaire):
+void		User::addMode(char to_add){
+	this->_userModes |= to_add;
+	this->setUserStatus();
+}
+
+//désactiver un mode (forme binaire):
+void		User::removeMode(char to_rmv){
+	this->_userModes |= to_rmv;
+	this->setUserStatus();
+}
+
 /*=====================================================*/
 /* 					     GETTER						   */
 /*=====================================================*/
 
-std::string	User::getUsername(void) const{
+int			User::getUserID() const{
+	return (this->_id);
+}
+
+std::string	User::getUsername() const{
 	return (this->_username);
 }
 
-std::string	User::getNickname(void) const{
+std::string	User::getNickname() const{
 	return (this->_nickname);
 }
 
-std::string	User::getHostname(void) const{
+std::string	User::getHostname() const{
 	return (this->_hostname);
 }
 
-std::string	User::getRealname(void) const{
+std::string	User::getRealname() const{
 	return (this->_realname);
 }
 
-char		User::getUserModes(void) const{
+char		User::getUserModes() const{
 	return (this->_userModes);
 }
 
-std::string	User::getUserStatus(void) const{
+std::string	User::getUserStatus() const{
 	return (this->_userStatus);
 }

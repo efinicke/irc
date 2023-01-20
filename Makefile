@@ -36,6 +36,7 @@ SRCS_FILES = 		main.cpp \
 INCLUDES_FILES =	Server.hpp \
 					Channel.hpp \
 					User.hpp \
+					Cmd.hpp \
 					include.hpp
 
 # Objects files built from .cpp files
