@@ -37,7 +37,8 @@ INCLUDES_FILES =	Server.hpp \
 					Channel.hpp \
 					User.hpp \
 					Cmd.hpp \
-					include.hpp
+					Rpl_Answer \
+					Include.hpp
 
 # Objects files built from .cpp files
 OBJS = $(SRCS_FILES:%.cpp=%.o)
