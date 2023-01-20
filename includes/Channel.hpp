@@ -32,7 +32,7 @@ class	Channel
 		std::string				_topic; // sujet du channel
 		int						_maxUsers; // nombre maximum d'utilisateurs autorisés à se connecter sur ce channel
 
-		int						_chanModes;  // format binaire qui indique les modes du channel.
+		char					_chanModes;  // format binaire qui indique les modes du channel.
 		std::string				_chanStatus; // contient les modes du channel sous forme de string à afficher lors de /list
 
 
@@ -46,19 +46,19 @@ class	Channel
 		~Channel(void);
 
 		// *** GETTERS ***
-		std::map<int, User>	getUsersList();
-		std::map<int, User>	getOperatorsList();
-		std::map<int, User>	getVoiceList();
-		std::map<int, User>	getBanList();
-		std::map<int, User>	getInviteList();
+		std::map<int, User>	getUsersList() const;
+		std::map<int, User>	getOperatorsList() const;
+		std::map<int, User>	getVoiceList() const;
+		std::map<int, User>	getBanList() const;
+		std::map<int, User>	getInviteList() const;
 
-		std::string			getName();
-		int					getID();
-		std::string			getTopic();
-		int					getMaxUsers();
+		std::string			getName() const;
+		int					getID() const;
+		std::string			getTopic() const;
+		int					getMaxUsers() const;
 
-		int					getModes(); // modes du channel (code numérique)
-		std::string 		getStatus(); // modes du channel (lettres)
+		char				getModes() const; // modes du channel (code numérique)
+		std::string 		getStatus() const; // modes du channel (lettres)
 
 
 		// *** SETTERS ***
@@ -73,8 +73,8 @@ class	Channel
 		// 	DEFINIR DES PROPRIETES AU CHANNEL: 
 		void	setTopic(std::string topic);
 		void	setMaxUsers(int maxUsers);
-		void	addMode(int to_add);
-		void	rmvMode(int to_rmv);
+		void	addMode(char to_add);
+		void	rmvMode(char to_rmv);
 		void	setStatus(); // maj automatique avec addMode() et rmvMode()
 };
 

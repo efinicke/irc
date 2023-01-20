@@ -30,57 +30,57 @@ Channel::~Channel(void){
 /*=====================================================*/
 
 // récupérer la liste des utilisateurs connectés au channel:
-std::map<int, User>	Channel::getUsersList(){
+std::map<int, User>	Channel::getUsersList() const{
 	return (this->_usersList);
 }
 
 // récupérer la liste des opérateurs du channel:
-std::map<int, User>	Channel::getOperatorsList(){
+std::map<int, User>	Channel::getOperatorsList() const{
 	return (this->_operatorsList);
 }
 
 // récupérer la liste des users avec le droit de parler dans le channel:
-std::map<int, User>	Channel::getVoiceList(){
+std::map<int, User>	Channel::getVoiceList() const{
 	return (this->_voiceList);
 }
 
 // récupérer la liste des utilisateurs bannis du channel: 
-std::map<int, User>	Channel::getBanList(){
+std::map<int, User>	Channel::getBanList() const{
 	return (this->_banList);
 }
 
 // récupérer la liste des utilisateurs invités sur le channel: 
-std::map<int, User>	Channel::getInviteList(){
+std::map<int, User>	Channel::getInviteList() const{
 	return (this->_inviteList);
 }
 
 // récupérer le nom du channel:
-std::string			Channel::getName(){
+std::string			Channel::getName() const{
 	return (this->_name);
 }
 
 // récupérer l'ID du channel: 
-int					Channel::getID(){
+int					Channel::getID() const{
 	return (this->_ID);
 }
 
 // récupérer le topic du channel: 
-std::string			Channel::getTopic(){
+std::string			Channel::getTopic() const{
 	return (this->_topic);
 }
 
 // récupérer le nombre max d'utilisateurs autorisés à se connecter dans le channel: 
-int					Channel::getMaxUsers(){
+int					Channel::getMaxUsers() const{
 	return (this->_maxUsers);
 }
 
 // récupérer les modes du channel (ref par nbr):
-int					Channel::getModes(){
+char				Channel::getModes() const{
 	return (this->_chanModes);
 }
 
 //récupérer les modes du channel (ref par lettres):
-std::string			Channel::getStatus(){
+std::string			Channel::getStatus() const{
 	return (this->_chanStatus);
 }
 
@@ -134,13 +134,13 @@ void	Channel::setMaxUsers(int maxUsers){
 }
 
 //activer un mode (forme binaire):
-void	Channel::addMode(int to_add){
+void	Channel::addMode(char to_add){
 	this->_chanModes |= to_add;
 	setStatus();
 }
 
 //désactiver un mode (forme binaire):
-void	Channel::rmvMode(int to_rmv){
+void	Channel::rmvMode(char to_rmv){
 	this->_chanModes |= to_rmv;
 	setStatus();
 }

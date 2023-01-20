@@ -21,28 +21,6 @@ CLASS USER:
 - int                           nombre de channels max autorisés par user (recommandé à 10)
 
 
-****************************
-CLASS CHANNEL (proposition):
-****************************
-- vector ou map? users bannis 
-- vector ou map? users invités
-- vector ou map? users connectés
-- vector ou map? users opérateurs
-
-- string         mot de passe ("" par defaut)
-- int            nb limite d'utilisateurs
-- string         topic (sujet du chan)
-
-- bool           mot de passe requis ?
-- int            nombre de users max pour ce channel si l'option "l" est activée
-
-- bool           mode invisibilité ?
-- bool           nb limite d'utilisateurs (MODE + l) ?
-- bool           topic ?
-- bool           password ?
-
-- char[nb de modes de type chan traités]    permet d'afficher les mode lorsque /list des noms des chans avec le nombre de users, le topic..
-
 /MODE
 SEUL LE CHANNEL OPERATOR A LE DROIT DE CHANGER LE MODE DU CHAN
  Utilisation de /MODE sur un channel :
@@ -141,9 +119,9 @@ Cas d'une commande invalide:
 
 
 !JOIN
-* joindre un channel: 
+* joindre un channel:
     * cmd: /join
-            - ERR_NEEDMOREPARAM: "<commande> : Not enough parameters" 
+            - ERR_NEEDMOREPARAM: "<commande> : Not enough parameters"
     * cmd: /join #<channel_name> [optionnel: <password>]
         * Case 1: Flow si le channel existe. 
             - parcourir le channel et verifier s'il existe
@@ -268,7 +246,7 @@ renvoie RPL_LISTEND: "End of /LIST"
         RPL_ENDOFNAMES;
     * l'utilisateur n'est pas dans un chan :
         home: ERR_?? : Not joined any channel.
-* cmd: /names #<channel_name> #<channel_name_2> ...
+* cmd: /names #<channel_name> #<channel_name_2>
         liste tous les users visibles du channel concerné dans le chan concerné, meme si on est sur le home.
 
 

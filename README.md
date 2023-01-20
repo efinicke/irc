@@ -1295,10 +1295,13 @@ IRC COMMANDS
     KILL -
     PING -
     PONG -
+    MOTD -
+
     PASS -
     PRIVMSG -
+
     NOTICE -
-    MOTD -
+    
 
     Optional:
     AWAY
