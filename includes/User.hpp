@@ -24,6 +24,8 @@ enum	userModes
 	WALLOPS_MODE					= 16,	 // 0001 0000   w wallops		1 si PAS CLAIR envoie de message a tous les operateurs. 
 }; 
 
+// ajouter la liste des channels sur lesquels il est connecté?
+
 class	User
 {
 	private:

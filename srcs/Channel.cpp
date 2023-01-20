@@ -15,8 +15,8 @@ Channel::Channel(std::string name, std::string password): _name(name), _password
 	this->addMode(212);
 }
 
-// création d'un channel test avec userList prédéfinie: 
-Channel::Channel(std::string name, std::map<int, User> usersList): _name(name), _usersList(usersList){
+// création d'un channel test avec userMap prédéfinie: 
+Channel::Channel(std::string name, std::map<int, User> usersMap): _name(name), _usersMap(usersMap){
 	this->addMode(208);
 }
 
@@ -30,28 +30,28 @@ Channel::~Channel(void){
 /*=====================================================*/
 
 // récupérer la liste des utilisateurs connectés au channel:
-std::map<int, User>	Channel::getUsersList() const{
-	return (this->_usersList);
+std::map<int, User>	Channel::getUsersMap() const{
+	return (this->_usersMap);
 }
 
 // récupérer la liste des opérateurs du channel:
-std::map<int, User>	Channel::getOperatorsList() const{
-	return (this->_operatorsList);
+std::map<int, User>	Channel::getOperatorsMap() const{
+	return (this->_operatorsMap);
 }
 
 // récupérer la liste des users avec le droit de parler dans le channel:
-std::map<int, User>	Channel::getVoiceList() const{
-	return (this->_voiceList);
+std::map<int, User>	Channel::getVoiceMap() const{
+	return (this->_voiceMap);
 }
 
 // récupérer la liste des utilisateurs bannis du channel: 
-std::map<int, User>	Channel::getBanList() const{
-	return (this->_banList);
+std::map<int, User>	Channel::getBanMap() const{
+	return (this->_banMap);
 }
 
 // récupérer la liste des utilisateurs invités sur le channel: 
-std::map<int, User>	Channel::getInviteList() const{
-	return (this->_inviteList);
+std::map<int, User>	Channel::getInviteMap() const{
+	return (this->_inviteMap);
 }
 
 // récupérer le nom du channel:
@@ -96,27 +96,27 @@ std::string			Channel::getStatus() const{
 
 // ajouter un utilisateur dans le channel:
 void	Channel::addUser(int id, User user){
-	this->_usersList.insert(std::make_pair(id, user));
+	this->_usersMap.insert(std::make_pair(id, user));
 }
 
 // ajouter un opérateur dans le channel:
 void	Channel::addOperator(int id, User user){
-	this->_operatorsList.insert(std::make_pair(id, user));
+	this->_operatorsMap.insert(std::make_pair(id, user));
 }
 
 // ajouter un droit de parole à un utilisateur du channel:
 void	Channel::addVoiced(int id, User user){
-	this->_voiceList.insert(std::make_pair(id, user));
+	this->_voiceMap.insert(std::make_pair(id, user));
 }
 
 // ajouter un utilisateur à la liste des bannis du channel:
 void	Channel::addBan(int id, User user){
-	this->_banList.insert(std::make_pair(id, user));
+	this->_banMap.insert(std::make_pair(id, user));
 }
 
 // ajouter un utilisateur existant sur le serveur à rejoindre le channel:
 void	Channel::addInvite(int id, User user){
-	this->_inviteList.insert(std::make_pair(id, user));
+	this->_inviteMap.insert(std::make_pair(id, user));
 }
 
 

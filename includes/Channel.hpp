@@ -20,11 +20,11 @@ class	Channel
 {
 	private:
 
-		std::map<int, User>		_usersList; // liste des utilisateurs connectés au channel
-		std::map<int, User>		_operatorsList; // liste des opérateurs connectés sur le channel
-		std::map<int, User>		_voiceList; // liste des users autorisés à parler sur le chan, en dehors des opérateurs
-		std::map<int, User>		_banList; // liste des users bannis
-		std::map<int, User>		_inviteList; // liste des users invités dans le chan
+		std::map<int, User>		_usersMap; // liste des utilisateurs connectés au channel
+		std::map<int, User>		_operatorsMap; // liste des opérateurs connectés sur le channel
+		std::map<int, User>		_voiceMap; // liste des users autorisés à parler sur le chan, en dehors des opérateurs
+		std::map<int, User>		_banMap; // liste des users bannis
+		std::map<int, User>		_inviteMap; // liste des users invités dans le chan
 		
 		std::string				_name; // nom du channel
 		int						_ID; //identifiant du channel
@@ -41,16 +41,16 @@ class	Channel
 		// CONTRUCTOR / DESTRUCTOR
 		Channel(std::string name);
 		Channel(std::string name, std::string password);
-		Channel(std::string name, std::map<int, User> usersList);
+		Channel(std::string name, std::map<int, User> usersMap);
 		Channel();
 		~Channel(void);
 
 		// *** GETTERS ***
-		std::map<int, User>	getUsersList() const;
-		std::map<int, User>	getOperatorsList() const;
-		std::map<int, User>	getVoiceList() const;
-		std::map<int, User>	getBanList() const;
-		std::map<int, User>	getInviteList() const;
+		std::map<int, User>	getUsersMap() const;
+		std::map<int, User>	getOperatorsMap() const;
+		std::map<int, User>	getVoiceMap() const;
+		std::map<int, User>	getBanMap() const;
+		std::map<int, User>	getInviteMap() const;
 
 		std::string			getName() const;
 		int					getID() const;
