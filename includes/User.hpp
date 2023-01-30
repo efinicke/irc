@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   user.hpp                                           :+:      :+:    :+:   */
+/*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: efinicke <efinicke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 03:21:35 by ejahan            #+#    #+#             */
-/*   Updated: 2023/01/09 05:01:19 by ejahan           ###   ########.fr       */
+/*   Updated: 2023/01/30 03:28:36 by efinicke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef USER_HPP
 #define USER_HPP
 
-#include "./include.hpp"
+#include "./Include.hpp"
 
 enum	userModes
 {
@@ -30,36 +30,57 @@ class	User
 {
 	private:
 
-		int			_id;
-		std::string	_username;
-		std::string	_nickname;
-		std::string _hostname;
-		std::string _realname;
+		int							_sfd;
+		std::string					_username;
+		std::string					_nickname;
+		std::string 				_hostname;
+		std::string 				_realname;
+		std::string					_servername;
+		
+		std::vector<std::string>	_channels;
 
-		char		_userModes;
-		std::string _userStatus;
+		char						_userModes;
+		std::string 				_userStatus;
 
 
 	public:
 
 		// CONSTRUCTOR / DESTRUCTOR
-		User(std::string username, std::string nickname);
+		User(int sfd, std::string username, std::string nickname, std::string hostname, std::string realname);
+		User(int sfd, std::string username, std::string nickname, std::string hostname, std::string realname, char userModes);
+		User(std::string nickname, std::string username, std::string hostname, std::string servername, std::string realname);
 		~User(void);
 
 		// SETTER
-		void		setNickname(std::string new_nickname);
-		void		setUserModes(char userModes); // modes de l'user sous format numérique
-		void		setUserStatus(); // modes de l'user sous forme de lettres
-		void		addMode(char to_add);
-		void		removeMode(char to_rmv);
+		void			setNickname(std::string nickname);
+		void			setUserModes(char userModes); // modes de l'user sous format numérique
+		void			setUserStatus(); // modes de l'user sous forme de lettres
+
+		void			addMode(char to_add);
+		void			removeMode(char to_rmv);
+		
+		void			addChannel(std::string name);
+		int				removeChannel(std::string name);
+		
 		// GETTER
-		int			getUserID() const;
-		std::string	getUsername() const;
-		std::string	getNickname() const;
-		std::string getHostname() const;
-		std::string getRealname() const;
-		char		getUserModes() const;
-		std::string	getUserStatus() const;
+		std::string					getUserSfd() const; //renvoie le sfd du User sous forme de string
+		int							getUserSfdN() const; //renvoie le sfd sous forme d'entier
+		std::string					getUsername() const;
+		std::string					getNickname() const;
+		std::string 				getHostname() const;
+		std::string 				getRealname() const;
+		char						getUserModes() const;
+		std::string					getUserStatus() const;
+		
+		std::vector<std::string>	getChannels() const;
+		int							findChannel(std::string name) const;
+		void						printChannels() const;
+		
+		
+		
 };
+
+// juste pour tester -> a supprimer plus tard
+std::ostream    &operator<<(std::ostream &out, User const &user);
 
 #endif

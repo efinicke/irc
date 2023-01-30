@@ -8,19 +8,6 @@ Se balader entre les differents channels et le "home":
 * Alt + 1 (home), Alt + 2 (chan1), Alt + 3 (chan2) ...
 
 
-***********
-CLASS USER: 
-***********
-- string                        realname
-- string                        username
-- string                        nickname
-- string                        hostname
-
-- int                           modes [12] (correspond aux 12 modes utilisateur, mais a voir combien on en traite)
-- map <int *{modes}, channel *> channels sur lesquel il est connecté, le tableau d'int represente les modes de l'utilisateur par channel.
-- int                           nombre de channels max autorisés par user (recommandé à 10)
-
-
 /MODE
 SEUL LE CHANNEL OPERATOR A LE DROIT DE CHANGER LE MODE DU CHAN
  Utilisation de /MODE sur un channel :
@@ -52,7 +39,6 @@ Example:
 Lorsqu'un mode est défini, un message s'affiche dans le chan : 
 mode/#<channel> [-s] by <nickname>
 mode/#<channel> [-t] by <nickname>
-
 
 *******************************
 !DROITS DES CHANNEL OPERATEURS:
@@ -103,7 +89,7 @@ Cas d'une commande invalide:
 !NICK
 * Case 1: Pas de pseudo: 
   cmd: /nick <arg manquant>
-        * msg affiché dans le home: "Your nickname is <nickname>"
+        * ERR_NONICKNAMEGIVEN;
 * avec argument
   cmd: /nick <nouveau pseudo>
         * Case 2: Le pseudo existe déjà: 
@@ -112,7 +98,7 @@ Cas d'une commande invalide:
             * Case 3: format correct:  
                 - remplacer le pseudo de l'user
                 - home: You are known as <nouveau nickname>
-                - Afficher un message dans tous les channels de l'user pour alerter les participants du changement de nom.
+                ???- Afficher un message dans tous les channels de l'user pour alerter les participants du changement de nom.
             * Case 4: mauvais format:
                 home: ERR_ERRONEUSNICKNAME : "<pseudo> :Erroneus nickname. Illegal character."
                 Le format est mauvais : (verifier ces regles, pas plus de 9 chars, éviter les délimiteurs comme les ",", certains char speciaux et chiffres, 1er char doit etre une lettre)
@@ -142,11 +128,37 @@ Cas d'une commande invalide:
                     - Le serveur ajoute l'utilisateur au channel
                     - L'utilisateur reçoit le sujet du topic ... RPL_TOPIC
                     - ... ainsi que la liste des users sur le canal RPL_NAMREPLY
+    
         * Case 2: Flow si le channel n'existe pas:
             - Parcourir les channels et vérifier s'il existe
             - si le nb max de channels est atteind pour l'user : 
                 ERR_TOOMANYCHANNELS: "<nom de canal> :You have joined too many channels" 
             - création du channel : "channel <channel_name> created + Wed 
+
+Once a user has joined a channel, they receive notice about all commands their server receives which affect the channel.  This includes MODE, KICK, PART, QUIT and of course PRIVMSG/NOTICE.
+The JOIN command needs to be broadcast to all servers so that each server
+   knows where to find the users who are on the channel.  This allows
+   optimal delivery of PRIVMSG/NOTICE messages to the channel.
+
+   If a JOIN is successful, the user is then sent the channel's topic
+   (using RPL_TOPIC) and the list of users who are on the channel (using
+   RPL_NAMREPLY), which must include the user joining.
+
+   RPL_NAMEREPLY:
+   Cette valeur numérique est utilisée en réponse à une commande NAMES ou lors de l'adhésion à un canal et contient les surnoms des utilisateurs actuellement dans le canal avec leur statut.
+
+   Numeric Replies:
+
+                     
+           ERR_BADCHANMASK = a un rapport avec le +I qui permet a un utilisateur de rentrer meme s'il est pas invité tan qu'il fait partie de cette liste. 
+
+           ERR_NOSUCHCHANNEL =              
+           RPL_TOPIC
+           RPL_NAMEREPLY ? 
+           ERR_UNAVAILRESOURCE = quqnd creer un chanel échoue
+           ERR_TOOMANYTARGET
+
+           RPL_ENDOFNAMES
 
 
 /ADMIN
@@ -221,7 +233,9 @@ Example : /mode #cool +a (donne le status IRCAministrator)
         ERR_NOTONCHANNEL: <channel> :You're not on that channel
     * Case 4 : le channel existe et l'utilisateur est dessus:
         - L'user est supprimé du channel.
+        - Le channel est supprimé dans la liste de l'utilisateur. 
         - Un message informe les users du chan que user a quitté le chan: <nickname> has left #<channel>
+        - si il n'y a plus d'utilisateur dans ce channel, le channel est supprimé.
 
 
 !LIST

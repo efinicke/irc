@@ -6,7 +6,7 @@
 #    By: grannou <grannou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/31 01:35:59 by grannou           #+#    #+#              #
-#    Updated: 2023/01/14 06:53:06 by grannou          ###   ########.fr        #
+#    Updated: 2023/01/27 09:16:00 by grannou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,20 @@ CPPFLAGS = -I$(INCLUDES_DIR)
 SRCS_FILES = 		main.cpp \
 					Server.cpp \
 					Channel.cpp \
-					User.cpp
+					User.cpp \
+					Utils.cpp \
+					srcs/Parsing/Parsing.cpp \
+					srcs/Parsing/Command.cpp \
+					srcs/Parsing/utils.cpp \
+					srcs/Parsing/commands.cpp \
+					srcs/Commands/QUIT.cpp \
+					srcs/Commands/PASS.cpp \
+					srcs/Commands/USER.cpp 
 
 # Header files
 INCLUDES_FILES =	Server.hpp \
 					Channel.hpp \
 					User.hpp \
-					Cmd.hpp \
-					Rpl_Answer \
 					Include.hpp
 
 # Objects files built from .cpp files

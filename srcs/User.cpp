@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   user.cpp                                           :+:      :+:    :+:   */
+/*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: efinicke <efinicke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 03:21:42 by ejahan            #+#    #+#             */
-/*   Updated: 2023/01/09 05:03:48 by ejahan           ###   ########.fr       */
+/*   Updated: 2023/01/29 08:54:32 by efinicke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,33 @@
 /* 				CONTRUCTOR / DESTRUCTOR				   */
 /*=====================================================*/
 
-User::User(std::string username, std::string nickname) : _username(username), _nickname(nickname) {}
+User::User(int sfd, std::string username, std::string nickname, std::string hostname, std::string realname):\
+_sfd(sfd), _username(username), _nickname(nickname), _hostname(hostname), _realname(realname){
+	this->_userModes = (char)0;
+}
+User::User(int sfd, std::string username, std::string nickname, std::string hostname, std::string realname, char userModes):\
+_sfd(sfd), _username(username), _nickname(nickname), _hostname(hostname), _realname(realname), _userModes(userModes){
+}
 
-User::~User(void) {}
+User::User(std::string nickname, std::string username, std::string hostname, std::string servername, std::string realname)
+{
+	this->_nickname = nickname;
+	this->_username = username;
+	this->_hostname = hostname;
+	this->_servername = servername;
+	this->_realname = realname;
+}
+
+User::~User(void) {
+}
 
 
 /*=====================================================*/
 /* 					     SETTER						   */
 /*=====================================================*/
 
-void		User::setNickname(std::string new_nickname){
-	this->_nickname = new_nickname;
+void		User::setNickname(std::string nickname){
+	this->_nickname = nickname;
 }
 
 void		User::setUserModes(char userModes){
@@ -63,12 +79,33 @@ void		User::removeMode(char to_rmv){
 	this->setUserStatus();
 }
 
+void		User::addChannel(std::string name){
+	this->_channels.push_back(name);
+}
+
+
+// enlever un channel de la liste des channels actifs du user: 
+int			User::removeChannel(std::string name){
+	if (this->findChannel(name)){	
+		this->_channels.erase(std::remove(this->_channels.begin(), this->_channels.end(), name), this->_channels.end());
+		return (1);
+	}
+	return (0);
+}
+
 /*=====================================================*/
 /* 					     GETTER						   */
 /*=====================================================*/
 
-int			User::getUserID() const{
-	return (this->_id);
+std::string			User::getUserSfd() const{
+	std::stringstream ss;
+	ss << this->_sfd;
+	std::string str = ss.str();
+	return (str);
+}
+
+int			User::getUserSfdN() const{
+	return (this->_sfd);
 }
 
 std::string	User::getUsername() const{
@@ -93,4 +130,27 @@ char		User::getUserModes() const{
 
 std::string	User::getUserStatus() const{
 	return (this->_userStatus);
+}
+
+std::vector<std::string>	User::getChannels() const{
+	return (this->_channels);
+}
+
+void						User::printChannels() const{
+	
+	std::vector<std::string>::iterator it;
+
+	for (it = this->getChannels().begin(); it != this->getChannels().end(); it++){
+		std::cout << "[" << *it << "]" << std::endl;
+	}
+}
+
+int							User::findChannel(std::string name) const{
+	std::vector<std::string>::iterator it;
+
+		for (it = this->getChannels().begin(); it != this->getChannels().end(); it++){
+			if ((*it) == name)
+				return (1);
+	}
+	return (0);
 }

@@ -1,14 +1,16 @@
-#include <iostream>
-#include "Cmd.hpp"
-#include "User.hpp"
+#ifndef RPL_ANSWER_HPP
+# define RPL_ANSWER_HPP
 
+#include "Include.hpp"
 
+/*
 #define SERVERNAME "IRCserv"
 #define SERVER "127.0.0.1" 
 #define VERSION "1.00"
 #define DATE "Fri Jan 20 08:57:00 2023"
 #define DEFAULT_NAME "unknowName"
 #define TIME_LIMIT 60
+*/
 
 #define AWAY_DEFAULT (":You have been marked as being away")
 
@@ -150,10 +152,6 @@
 
 #define ERR_BADCHANMASK(localhost, channel) (":" + localhost + " 476 " + channel + " :Bad Channel Mask\r\n")
 
-#define ERR_NOPRIVILEGES(localhost) (":" + localhost + " 481 :Permission Denied- You're not an IRC operator\r\n")
-
-#define ERR_CHANOPRIVSNEEDED(localhost, channel) (":" + localhost + " 482 " + channel + " :You're not channel operator\r\n")
-
 #define ERR_CANTKILLSERVER(localhost) (":" + localhost + " 483 :You can't kill a server!\r\n")
 
 #define ERR_RESTRICTED(localhost) (":" + localhost + " 484 :Your connection is restricted!\r\n")
@@ -163,3 +161,5 @@
 #define ERR_UMODEUNKNOWNFLAG(localhost) (":" + localhost + " 501 :Unknown MODE flag\r\n")
 
 #define ERR_USERSDONTMATCH(localhost, nick) (":" + localhost + " 502 " + nick + " :Cannot change mode for other users\r\n")
+
+#endif

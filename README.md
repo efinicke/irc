@@ -5,6 +5,17 @@ NOTE: test en make run puis dans un autre terminal nc -C localhost 6667 (-C perm
     pour le parsing look at strok() ou strtok()
     look les fonctions de string
 
+Test avc proxy.sh pour comprendre syntaxe IRC:
+lancer ./proxy.sh 4243 irc.ircube.org 6667
+lancer dans une autre fenetre irssi (/c!onnect localhost 4243)
+voir ce que recoit le serveur et ce qu'il doit afficher
+Le proxy fait office de bureau de poste et il lit le courrier
+
+Pour fermer le serveur:
+    catcher le signal ctrl + c puis fermer proprement le programme (leaks et cie)
+    le code de ctrl + c c'est SIGINT
+
+
 Onglets Google Grannou
 https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa
 https://ircgod.com/posts/ircserver1/building-an-irc-server-1/
@@ -487,6 +498,26 @@ Functions Prototypes du sujet
 
         res = pointer to the head of the linked list addrinfo structures that was returned by getaddrinfo()
         it does not clise any open socket or release any other resources
+
+    #################
+    # getnameinfo() #
+    #################
+        used to convert a socket address, such as an IP address and port number, into a human-readable host and service name. typically used in conjunction with the getaddrinfo()
+        The getnameinfo() function takes a socket address (in the form of a sockaddr struct), the size of that struct, and flags indicating what information to return. It then fills in a host buffer and a service buffer with the host name and service name, respectively.
+
+            #include <netdb.h>
+            #include <sys/socket.h> for sockaddr struct
+            int getnameinfo(const struct sockaddr *sa, socklen_t salen, char *host, socklen_t hostlen, 
+                char *serv, socklen_t servlen, int flags);
+
+        sa      = pointer to sockaddr struct that contains the socket address to be converted
+        salen   = size of sockaddr struct pointed by sa
+        host    = pointer to a buffer that will be filled with the hostname
+        hostlen = size of the buffer pointed to by host
+        serv    = pointer to a buffer that will be filled with the service name
+        servlen = size of the buffer pointed to by serv
+        flags   = flags to modify the behavior of the function
+        returns 0 on success, error code on failure (use gai_strerror() to obtain a human readable error message)
 
     ##########
     # bind() #
@@ -1106,9 +1137,16 @@ Functions Prototypes du sujet
         
         To use epoll in C++, you will need to create an epoll instance using the epoll_create() function, add file descriptors to the instance using the epoll_ctl() function, and then wait for events to occur on the file descriptors using the epoll_wait() function.
 
+        42Voici les principales fonctions associées à epoll:
+        
+        epoll_create() : crée un objet epoll et renvoie un descripteur de fichier qui peut être utilisé pour        surveiller les événements sur des descripteurs de fichiers.
+        epoll_ctl() : utilisé pour ajouter, supprimer ou modifier des descripteurs de fichiers à surveiller.
+        epoll_wait() : bloque jusqu'à ce qu'un événement sur un des descripteurs de fichiers surveillés se      produise.
+        epoll_pwait() : une version de epoll_wait() qui prend en compte un masque de signaux pour éviter        d'être interrompu par des signaux.
+
             int epoll_create(int size);
 
-                size = this argument i ignored but must be greater than 0
+                size = this argument is ignored but must be greater than 0
                 returns an int value:
                     if function successful, returns a file decriptor for the new epoll instance
                     if unsuccessful, returns -1 and set the errno global variable to indicate the error 
@@ -1136,10 +1174,10 @@ Functions Prototypes du sujet
                     if timeout is -1, the function will block indefinitely until an event occurs
                     if timeout is 0, the function will return immediately without waiting
                 returns an int value
-                    if function successful and one or more avents occured,
+                    if function successful and one or more events occured,
                         it returns the number of events stored in the events array
                     if function successful and timeout expired, it returns 0
-                    if function unsuccesful, it returns -1 and sets the rrno global variable to indicate the error
+                    if function unsuccesful, it returns -1 and sets the errno global variable to indicate the error
 
         ex: monitoring a file descriptor for data to beom available for reading
             #include <sys/epoll.h>
@@ -1196,6 +1234,49 @@ Functions Prototypes du sujet
               return 0;
             }
 
+    ############
+    # signal() #
+    ############
+        used to specify the behavior of a program when a specific signal is received.
+        A signal is a software interrupt that is generated by the operating system or by certain events, such as a keyboard interrup (Ctrl + C) or a segmentation fault
+
+            #include <signal.h>
+            void    (*signal(int sig, void (*func)(int)))(int);
+
+        sig  = a integer value representing the signal tobe handled
+        func = a function pointer to the signal handling function
+        returns a function pointer to the previous signal handling function or SIG_ERR if an error occurs
+        signal() is not part of the C++ standard library
+        -> better use sigaction (more flexible, portable and thread-safe)
+    
+    ###############
+    # sigaction() #
+    ###############
+        similar use to signal but more flexible and portable
+
+            #include <signal.h>
+            int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+        
+        signum  = an integer value representing the signal to be handled
+        act     = pointer to a struct sigaction that contains the signal
+                    handling information
+        oldact  = pointer to a struct sigaction that will be filled with the previous signal information
+        return 0 on success, -1 if error and set errno
+
+        the struct sigactio contains the following fields:
+            sa_handler = pointer to the signal handling the function
+            sa_flags   = additional flags that can modify the behavior of the
+                        signal handling
+            sa_mask    = a set of signals that will be blocked during the execution of
+                        the  signal handling function
+
+        ex: the following code sets the sigint_handler function as the signal handler for the SIGINT signal (Ctrl + C)
+
+            struct sigaction sigint_action;
+            sigint_action.sa_handler = sigint_handler;
+            sigemptyset(&sigint_action.sa_mask);
+            sigint_action.sa_flags = 0;
+            sigaction(SIGINT, &sigint_action, NULL);
 
 ##########################################
 Launch server: ./ircserv <port> <password>
@@ -1295,13 +1376,10 @@ IRC COMMANDS
     KILL -
     PING -
     PONG -
-    MOTD -
-
     PASS -
     PRIVMSG -
-
     NOTICE -
-    
+    MOTD -
 
     Optional:
     AWAY
