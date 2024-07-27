@@ -32,7 +32,7 @@ RM					=	/bin/rm -rf
 # Compiler and flags
 CXX 				=	c++
 #CXXFLAGS			=	-Wall -Wextra -Werror -MMD -MP -MT -g3 -std=c++98
-CXXFLAGS 			=	-std=c++98 -Wall -Wextra -MMD -MP -MT -g3 -Ofast -fsanitize=address
+CXXFLAGS 			=	-std=c++98 -Wall -Wextra -Werror -MMD -MP -MT -g3 -Ofast -fsanitize=address
 //CXXFLAGS 			+=	-pedantic -Weffc++ -Wconversion
 CPPFLAGS 			=	-I$(INCLUDES_DIR)
 

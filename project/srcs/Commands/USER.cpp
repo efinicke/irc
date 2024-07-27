@@ -3,12 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   USER.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grannou <grannou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: efinicke <efinicke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 02:07:37 by ejahan            #+#    #+#             */
-/*   Updated: 2023/02/20 23:57:08 by grannou          ###   ########.fr       */
+/*   Updated: 2024/07/23 19:33:16 by efinicke         ###   ########.fr       */
 /*                                                                            */
-
+/* ************************************************************************** */
 
 #include "../../includes/Include.hpp"
 #include "../../includes/Server.hpp"

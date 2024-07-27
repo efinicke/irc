@@ -1,54 +1,122 @@
 # ft_irc: Internet Relay Chat Server
 
-## Skills
-
-- **Network Programming**: Gained proficiency in socket programming and TCP/IP communication.
-- **Concurrency**: Developed the ability to manage multiple clients simultaneously without using forking, ensuring non-blocking I/O operations.
-- **Error Handling**: Enhanced skills in robust error checking and handling to prevent crashes and unexpected quits.
-- **C++ 98 Standard**: Strengthened knowledge of C++ 98, including the use of standard libraries and features.
-- **Team Collaboration**: Improved teamwork and collaboration skills through group work with peers from 42 School.
+## Skills Acquired
+- Mastery of the C++ 98 standard and features
+- Understanding and implementation of network protocols (TCP/IP)
+- Handling non-blocking I/O operations
+- Experience in concurrent client management
+- Implementation of communication protocols and client-server architecture
+- Collaborative development using Git
 
 ## Project Overview
+`ft_irc` is a 42 project centered on developing a fully functional Internet Relay Chat (IRC) server using the C++ 98 standard. The main goal was to ensure compatibility with an official IRC client, providing a reliable and feature-complete experience. For testing and validation, we chose the popular IRC client **irssi** as our reference.
 
-This 42 project, ft_irc, is a group endeavor undertaken at 42 School alongside my colleagues Ejahan and Grannou. We collaborated to create an IRC server in C++ 98. Our goal was to implement a server that could handle multiple clients, facilitate real-time messaging, and support essential IRC functionalities such as authentication, nickname management, channel joining, and private messaging.
+The project involves handling multiple clients simultaneously, maintaining responsiveness and security under various conditions. The server supports essential IRC functionalities, including user authentication, channel management, and private messaging, closely mirroring the behavior of established IRC networks.
 
-One of the significant challenges we faced was ensuring that our server could manage concurrent connections without hanging and without using forking. We utilized non-blocking I/O operations and a single `poll()` call to handle all read, write, and listen operations efficiently. Our implementation had to be robust enough to handle partial data, low bandwidth, and other common issues without crashing.
+Developed collaboratively by [Grannou](https://github.com/Grannou) and [Ejahan](https://github.com/Ejahan) from School 42.
 
 ## Features
+- **Multi-client support**: The server can handle multiple simultaneous connections.
+- **Basic IRC functionalities**:
+  - User authentication
+  - Setting nicknames and usernames
+  - Joining and leaving channels
+  - Sending and receiving private messages
+  - Broadcasting messages to all clients in a channel
 
-- **Multi-client Handling**: Supports multiple clients simultaneously without blocking or hanging.
-- **Authentication**: Requires a password for clients to connect.
-- **Nickname and Username Management**: Allows users to set their nicknames and usernames.
-- **Channel Operations**: Clients can join and communicate in channels.
-- **Private Messaging**: Supports private messages between users.
-- **Operator Commands**:
-  - **KICK**: Eject a client from a channel.
-  - **INVITE**: Invite a client to a channel.
-  - **TOPIC**: Change or view the channel topic.
-  - **MODE**: Change the channel's mode with subcommands:
-    - **i**: Invite-only channel.
-    - **t**: Restrict topic changes to operators.
-    - **k**: Set/remove channel key (password).
-    - **o**: Grant/take channel operator privilege.
-    - **l**: Set/remove user limit to channel.
+### Supported IRC Commands
+The server supports the following IRC commands, implemented according to the IRC protocol specifications:
+
+- **INVITE**: Invites a user to a channel.
+- **JOIN**: Joins a specified channel.
+- **KICK**: Removes a user from a channel.
+- **KILL**: Disconnects a user from the server (admin command).
+- **LIST**: Lists all channels or those matching a certain pattern.
+- **MODE**: Changes the mode of a user or channel (e.g., setting channel restrictions or user privileges).
+- **MOTD**: Retrieves the "Message of the Day" from the server.
+- **NAMES**: Lists the users in a channel.
+- **NICK**: Changes or sets a user's nickname.
+- **NOTICE**: Sends a notice message to a user or channel (similar to PRIVMSG but cannot be responded to).
+- **OPER**: Authenticates a user as an IRC operator.
+- **PART**: Leaves a specified channel.
+- **PASS**: Sets a connection password.
+- **PING**: Checks the connection to the server.
+- **PRIVMSG**: Sends a private message to a user or channel.
+- **QUIT**: Disconnects from the IRC server.
+- **TOPIC**: Sets or gets the topic of a channel.
+- **USER**: Sets the username and other initial user details upon connecting.
+
+- **Channel Operations**:
+  - **Operators and Regular Users**: Differentiation and specific permissions
+  - **Commands for Operators**:
+    - `KICK`: Eject a client from a channel
+    - `INVITE`: Invite a client to a channel
+    - `TOPIC`: Change or view the channel topic
+    - `MODE`: Modify channel settings (e.g., invite-only, topic restrictions, channel password, operator privileges, user limit)
+- **Bonus Feature**:
+  - **File Transfer using DCC**: Enables direct client-to-client file transfers.
+  - **Chatbot**: Provides automated responses and interactions based on predefined commands or messages.
+
 
 ## Content
 
-- **Makefile**: The makefile to compile the source files with the rules `$(NAME)`, `all`, `clean`, `fclean`, and `re`.
-- **Source Files**: 
-  - **Header Files**: (`*.h`, `*.hpp`)
-  - **Source Files**: (`*.cpp`, `*.tpp`, `*.ipp`)
-- **Configuration File**: An optional configuration file for server settings.
+The project is organized as follows:
+- **Makefile**: Used to compile the project.
+- **chatBotMotd.txt**: Message of the Day for the chat bot.
+- **dependencies/**: Dependency files for the build.
+- **dependenciesBonus/**: Dependency files for bonus features.
+- **includes/**: Header files (.hpp) defining the main structures and classes of the project.
+- **motd.txt**: Message of the Day displayed to users upon connection.
+- **proxy.sh**: Script for testing the server with a proxy.
+- **srcs/**: Main source files of the project, including implementations of IRC commands and utility functions.
+  - **Commands/**: Implementations of various IRC commands.
+  - **Parsing/**: Files related to parsing and associated utilities.
+- **srcsBonus/**: Source files for bonus features, such as DCC file transfers and chatBot.
+
 
 ## Usage
 
-To run the IRC server, use the following command:
+Avoir la resolution dynamique sur la VM:
+    sudo apt-get install virtualbox-guest-additions-iso
 
-```sh
-./ircserv <port> <password>
+utiliser irssi, client d'irc console
+    (sudo apt-get install irssi)
+    deja installe sur Dell 
+        irssi --version
+        irssi 1.2.3-1ubuntu4 (20210409 0011) // irssi 1.2.2-1ubuntu1.1 (20198829 0225 sur VM)
 
-## Links 
+1. **Build and Run the Server:**
+   - To compile the server, use the `make` command in the terminal.
+   - Start the server with `make run`. This will launch the server and listen for incoming connections.
 
-- [Building IRC server](https://ircgod.com/posts/ircserver1/building-an-irc-server-1/)
-- [HTTP Server: Everything you need to know to Build a simple HTTP server from scratch](https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa)
-- 
+2. **Testing with `nc` (Netcat):**
+   - Open a new terminal window and use `nc -C localhost 6667` to connect to the server. The `-C` flag ensures that newline characters are properly handled.
+
+3. **Testing with `irssi`:**
+   - In another terminal window, start `irssi` and connect to the server by typing `/connect localhost 6667`.
+
+4. **File Transfer (Bonus Feature):**
+   - **Sending Files:**
+     - Connect to `irssi` and use `/dcc chat <destinationNickname>` to initiate a chat session.
+     - Use `/dcc send <filename>` to send a file to the specified user.
+   - **Receiving Files:**
+     - Connect to `irssi` and type `/dcc listen` to prepare for incoming file transfers.
+     - Use `/dcc get <sender>` to receive a file from the specified user.
+
+5. **Stopping the Server:**
+   - To stop the server, press `Ctrl + C` in the terminal where the server is running. This will send a SIGINT signal to terminate the process cleanly.
+
+
+## Links
+
+- [How to Build a Simple HTTP Server from Scratch](https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa)
+- [Building an IRC Server: Part 1](https://ircgod.com/posts/ircserver1/building-an-irc-server-1/)
+- [Nonblocking I/O and the select Function](https://www.ibm.com/docs/en/i/7.3?topic=designs-example-nonblocking-io-select)
+- [RFC 2812: Internet Relay Chat (IRC)](https://datatracker.ietf.org/doc/html/rfc2812)
+- [Wikipedia: Internet Relay Chat](https://fr.wikipedia.org/wiki/Internet_Relay_Chat)
+- [YouTube: How to Build an IRC Server](https://www.youtube.com/watch?v=9J1nJOivdyw)
+- [YouTube: Another IRC Server Tutorial](https://www.youtube.com/watch?v=xfRdYrQUQeQ)
+- [SDZ: Les Sockets](http://sdz.tdct.org/sdz/les-sockets.html)
+- [Oramind: How to Make an IRC Server Connection](https://oramind.com/tutorial-how-to-make-an-irc-server-connection/)
+- [Microsoft Documentation: Winsock recv Function](https://learn.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-recv)
+
