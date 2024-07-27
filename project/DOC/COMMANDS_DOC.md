@@ -6,6 +6,42 @@ Se balader entre les differents channels et le "home":
 * ctrl + p
 * Alt + 1 (home), Alt + 2 (chan1), Alt + 3 (chan2) ...
 
+##########################################
+Launch server: ./ircserv <port> <password>
+##########################################
+
+################################################
+Launch client in another terminal: irssi + emter
+################################################
+
+COMMANDES IRC
+    run irssi dans le terminal
+        irssi
+
+    afficher la liste des servers
+        /server list
+
+    se connecter a un server
+        /connect <nom server>
+
+    configurer un pseudo
+        /nick <pseudo>
+
+    rejoindre/creer un salon de chat (existant/non existant)
+        /join <nom salon>
+
+    Ajouter un autre utilisateur
+        ouvrir un autre terminal
+        irssi
+        /server list
+        /connect <nom server>
+        /nick <pseudo>
+        /join <nom room>
+        /subscribe <nom utilisateur dans salon different de pseudo> channel
+
+    sortir d'un salon
+        /exit
+
 
 ******************************************************
 TESTER LA VALIDITE DES MESSAGES SERVEUR POUR LE CLIENT

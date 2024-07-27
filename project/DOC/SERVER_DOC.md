@@ -2,6 +2,47 @@
 
    # Understanding Server Functionality"
 
+    
+DEFINITIONS:
+
+    Socket: basic component of a server. allows your operating system to connect to a network in a particular way
+
+    En C++ on cree une classe qui represente une socket et qui sera portable pour d'autres fonctions (un serveur, un client ou un reseau peer to peer)
+    
+    On doit creer une socket avec la fonction socket(AF_INET, SOCK_STREAM, 0)
+        AF_INET = domain or address family
+            AF_INET  -> IP
+            AF_INET6 -> IPv6
+            AF_UNIX  -> local channel, similar to pipes
+            AF_ISO   -> ISO protocols
+            AF_NS    -> Xerox Network Systems protocols
+        SOCK_STREAM = type
+            SOCK_STREAM -> virtual circuit service
+            SOCK_DGRAM  -> datagram service
+            SOCK_RAW    -> direct IP service
+        0 = protocol to use un supporting the sockets operation
+            For TCP/IP sockets, we want to specify the IP address family (AF_INET) and virtual service circuit (SOCK_STREAM). 
+            Since there's only one form of virtual circuit servicem there are no variations of the protocol, so the last argument protocol is 0
+    puis la bind a un reseau avec la fonction bind(server_fd, (...))
+    puis listen avec la fonction listen(server_fd, ...)
+    Pour chaque etape, check si error (== 0 ou < 0)
+    The analogy of creating a socker is that of requesting a telehone line from the phone compagny
+    
+      
+    
+Notions pour coder un serveur http:
+    - OSI (Open Systems Interconnection model) = modele theorique en 7 couches pour assurer la communication standardisee par des protocoles pour une interoperabilite
+
+    - 4ene couche du modele OSI: Transport layer
+    s'assure que les infos sont transmises d'un point A a un poitn B sans erreurs
+    ex: TCP (Transmission Control Protocol), UDP (User Datagram Protocol), SPX (Sequenced Packet Exchange)
+    
+    - En general la communication http se fait avec les protocoles TCP/IP et le port 80 par defaut, meme si d'autre ports peuvent etre utilises (et UDP est plus rapide mais moins fiable)
+
+    - RFC (Request For Comments) = official documents of Internet specifications, communications protocols, procedures and events
+
+    - To implement HTTP server, read RFC 7230, 7231, 7232, 7233, 7234, 7235
+
 
     ##################
     Sockets Vocabulary

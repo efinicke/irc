@@ -76,29 +76,79 @@ The project is organized as follows:
 
 ## Usage
 
+1. **Install `irssi`:**
+   - Install `irssi` on your system using the following command:
+     ```bash
+     sudo apt-get install irssi
+     ```
 
-Prérequisite : **Install irssi** : `sudo apt-get install irssi`
+2. **Compile and Run the Server:**
+   - Navigate to the directory containing the server code and compile it with:
+     ```bash
+     make
+     ```
+   - Start the server with:
+     ```bash
+     ./ircserv <port> <password>
+     ```
 
-1. **Build and Run the Server:**
-   - To compile the server, use the `make` command in the terminal.
-   - Start the server with `make run`. This will launch the server and listen for incoming connections.
+3. **Set Up Netcat and `irssi`:**
+   - Open a new terminal window and set up a Netcat listener with:
+     ```bash
+     nc -l -p 6667
+     ```
+   - In another terminal window, start `irssi`:
+     ```bash
+     irssi
+     ```
+   - Connect `irssi` to the server:
+     ```
+     /connect localhost 6667
+     ```
 
-2. **Testing with `nc` (Netcat):**
-   - Open a new terminal window and use `nc -C localhost 6667` to connect to the server. The `-C` flag ensures that newline characters are properly handled.
-
-3. **Testing with `irssi`:**
-   - In another terminal window, start `irssi` and connect to the server by typing `/connect localhost 6667`.
-
-4. **File Transfer (Bonus Feature):**
-   - **Sending Files:**
-     - Connect to `irssi` and use `/dcc chat <destinationNickname>` to initiate a chat session.
-     - Use `/dcc send <filename>` to send a file to the specified user.
-   - **Receiving Files:**
-     - Connect to `irssi` and type `/dcc listen` to prepare for incoming file transfers.
-     - Use `/dcc get <sender>` to receive a file from the specified user.
-
-5. **Stopping the Server:**
-   - To stop the server, press `Ctrl + C` in the terminal where the server is running. This will send a SIGINT signal to terminate the process cleanly.
+4. **Testing with Commands:**
+   - **Using Netcat:**
+     - Set your nickname:
+       ```
+       NICK mynick
+       ```
+     - Join a channel:
+       ```
+       JOIN #testchannel
+       ```
+     - Send a message to the channel:
+       ```
+       PRIVMSG #testchannel :Hello, this is a test message.
+       ```
+     - List all channels:
+       ```
+       LIST
+       ```
+     - Quit the session:
+       ```
+       QUIT :Goodbye!
+       ```
+   - **Using `irssi`:**
+     - Set your nickname:
+       ```
+       /nick mynick
+       ```
+     - Join a channel:
+       ```
+       /join #testchannel
+       ```
+     - Send a message to the channel:
+       ```
+       /msg #testchannel Hello, this is a test message.
+       ```
+     - List all channels:
+       ```
+       /list
+       ```
+     - Quit the session:
+       ```
+       /quit Goodbye!
+       ```
 
 
 ## Links
