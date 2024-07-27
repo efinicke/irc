@@ -1,6 +1,6 @@
 # ft_irc: Internet Relay Chat Server
 
-## Skills Acquired
+## Skills
 - Mastery of the C++ 98 standard and features
 - Understanding and implementation of network protocols (TCP/IP)
 - Handling non-blocking I/O operations
@@ -10,9 +10,7 @@
 
 ## Project Overview
 `ft_irc` is a 42 project centered on developing a fully functional Internet Relay Chat (IRC) server using the C++ 98 standard. The main goal was to ensure compatibility with an official IRC client, providing a reliable and feature-complete experience. For testing and validation, we chose the popular IRC client **irssi** as our reference.
-
 The project involves handling multiple clients simultaneously, maintaining responsiveness and security under various conditions. The server supports essential IRC functionalities, including user authentication, channel management, and private messaging, closely mirroring the behavior of established IRC networks.
-
 Developed collaboratively by [Grannou](https://github.com/Grannou) and [Ejahan](https://github.com/Ejahan) from School 42.
 
 ## Features
@@ -26,7 +24,6 @@ Developed collaboratively by [Grannou](https://github.com/Grannou) and [Ejahan](
 
 ### Supported IRC Commands
 The server supports the following IRC commands, implemented according to the IRC protocol specifications:
-
 - **INVITE**: Invites a user to a channel.
 - **JOIN**: Joins a specified channel.
 - **KICK**: Removes a user from a channel.
