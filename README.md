@@ -76,14 +76,8 @@ The project is organized as follows:
 
 ## Usage
 
-Avoir la resolution dynamique sur la VM:
-    sudo apt-get install virtualbox-guest-additions-iso
 
-utiliser irssi, client d'irc console
-    (sudo apt-get install irssi)
-    deja installe sur Dell 
-        irssi --version
-        irssi 1.2.3-1ubuntu4 (20210409 0011) // irssi 1.2.2-1ubuntu1.1 (20198829 0225 sur VM)
+Prérequisite : **Install irssi** : `sudo apt-get install irssi`
 
 1. **Build and Run the Server:**
    - To compile the server, use the `make` command in the terminal.
