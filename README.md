@@ -1,7 +1,7 @@
 # ft_irc: Internet Relay Chat Server
 
 ## Skills Acquired
-- Mastery of the C++ 98 standard and features
+- C++
 - Understanding and implementation of network protocols (TCP/IP)
 - Handling non-blocking I/O operations
 - Experience in concurrent client management
